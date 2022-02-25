@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class CategoryState : MonoBehaviour
 {
+    // future: make everything private and create getters and setters to update stuff
+
+
     // these string arrays holds all the questions
     public static string quizCategory;
-    public static string[] religionQuestions = { "Who is the god of war in Greek mythology?", "Which of these religions is believed to be the oldest?", "What is the correct name for a Jewish place of worship?", "Which of these Old Testament books comes first?" };
-    public static string[] scienceQuestions = { "Where is DNA found inside a cell?", "What is an organism?", "What do we call the most basic structure of living things?", "In order to identify the probability of inheritance, we can use a __________." };
-    public static string[] computerScienceQuestions = { "Which among the following controls all parts of the computer and known as the brain of the computer?", "Who among the following first invented the computer mouse?", "The Fifth Generation Computer works on ...", "To store data and perform calculation, computer uses .......... number system." };
+    public static List<string> religionQuestions = new List<string>() { "Who is the god of war in Greek mythology?", "Which of these religions is believed to be the oldest?", "What is the correct name for a Jewish place of worship?", "Which of these Old Testament books comes first?" };
+    public static List<string> scienceQuestions = new List<string>() { "Where is DNA found inside a cell?", "What is an organism?", "What do we call the most basic structure of living things?", "In order to identify the probability of inheritance, we can use a __________." };
+    public static List<string> computerScienceQuestions = new List<string>() { "Which among the following controls all parts of the computer and known as the brain of the computer?", "Who among the following first invented the computer mouse?", "The Fifth Generation Computer works on ...", "To store data and perform calculation, computer uses .......... number system." };
     public static int index = 0;
+    public static Dictionary<string, int> totalResults = new Dictionary<string, int>();
 
     // these string arrays hold all the correct answers. they will be used to match the chosen answer later
     public static string[] correctReligionAnswer = new string[] { "Ares", "Hinduism", "Synagogue", "Numbers" };
@@ -30,7 +34,7 @@ public class CategoryState : MonoBehaviour
         {0, new string[] {"Cytoplasm", "Nucleus", "Cell membrane", "Mitochondria"} },
         {1, new string[] {"A living thing", "An organ", "A toy", "Food"} },
         {2, new string[] {"DNA", "Skin", "Cell", "Life"} },
-        {3, new string[] {"Paper", "Calculator", "Computer", "Punnet Square"} }
+        {3, new string[] {"Paper", "Calculator", "Computer", "Punnett Square" } }
     };
     public static Dictionary<int, string[]> computerScienceChoices = new Dictionary<int, string[]>()
     {
@@ -60,6 +64,40 @@ public class CategoryState : MonoBehaviour
         }
 
         return null;
+    }
 
+    public static List<String> getQuestions()
+    {
+        switch (quizCategory)
+        {
+            case "Religion":
+                return religionQuestions;
+            case "Science":
+                return scienceQuestions;
+            case "Computer Science":
+                return computerScienceQuestions;
+        }
+
+        return null;
+    }
+
+    public static Dictionary<int, string[]> getChoices()
+    {
+        switch (quizCategory)
+        {
+            case "Religion":
+                return religionChoices;
+            case "Science":
+                return scienceChoices;
+            case "Computer Science":
+                return computerScienceChoices;
+        }
+
+        return null;
+    }
+
+    public static void addResults(string category, int result)
+    {
+        totalResults.Add(category, result);
     }
 }
