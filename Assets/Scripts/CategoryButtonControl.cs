@@ -12,11 +12,9 @@ public class CategoryButtonControl : MonoBehaviour
         switch (input)
         {
             case "Religion":
-                Debug.Log("religion");
                 CategoryState.quizCategory = "Religion";
                 break;
             case "Science":
-                Debug.Log("science");
                 CategoryState.quizCategory = "Science";
                 break;
             case "Math":
