@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class CategoryButtonControl : MonoBehaviour
 {
-    
 
     public void loadQuestion(string input)
     {
@@ -28,6 +27,7 @@ public class CategoryButtonControl : MonoBehaviour
                 break;
             case "All Questions":
                 CategoryState.quizCategory = "All Questions";
+                SceneManager.LoadScene(3);
                 break;
             default:
                 break;

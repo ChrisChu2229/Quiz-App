@@ -16,6 +16,7 @@ public class QuestionController : MonoBehaviour
     private Button choice3;
     [SerializeField]
     private Button choice4;
+    [SerializeField]
     private int score;
     private List<Button> buttonList = new List<Button>();
     [SerializeField]
@@ -31,8 +32,6 @@ public class QuestionController : MonoBehaviour
         this.loadQuestions();
 
     }
-
-    
 
     public void checkAnswer(int id)
     {
@@ -88,17 +87,13 @@ public class QuestionController : MonoBehaviour
 
     private IEnumerator loadNextQuestion()
     {
-        // turn on panel
-        // categorystate.index++
-        // wait 2.5 seconds
-        // load next questions: loadQuestions()
 
         panel.gameObject.SetActive(true);
         if (CategoryState.getQuestions().Count > 0)
         {
             CategoryState.getQuestions().RemoveAt(0);
         }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
         this.resetButtonColors();
         panel.gameObject.SetActive(false);
         CategoryState.index++;
@@ -112,29 +107,23 @@ public class QuestionController : MonoBehaviour
     private void loadQuestions()
     {
         int stateIndex = CategoryState.index;
-        // check if index == 4
-        // get score
-        // switch to results scene
-        // show how many correct out of 4
-        // display text PERFECT 100%
-        // text WOW 75%
-        // You are smart! 50%
-        // You can do better <50%
-        // in results scene, make category state index 0
-
-        // check if questions are empty, that means this category is done
+        Dictionary<int, string[]> options = new Dictionary<int, string[]>();
         List<string> questions = CategoryState.getQuestions();
         if (questions.Count == 0)
         {
-            // load results
             CategoryState.index = 0;
-            SceneManager.LoadScene(2);
-            Debug.Log("this section is done. no more questions");
-        }
+            CategoryState.addResults(score);
             
-        Dictionary<int, string[]> options = CategoryState.getChoices();
-        questionText.text = questions[0];
+            // load results if there are no more questions here
+            SceneManager.LoadScene(2);
+        }
+        else
+        {
+            options = CategoryState.getChoices();
+            questionText.text = questions[0];
+        }
         // future: randomize options
+        CategoryState.randomizeOptions();
         if (stateIndex <= 3 && questions.Count > 0)
         {
             Debug.Log("new options");
