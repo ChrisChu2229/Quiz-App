@@ -27,7 +27,6 @@ public class CategoryButtonControl : MonoBehaviour
                 break;
             case "All Questions":
                 CategoryState.quizCategory = "All Questions";
-                SceneManager.LoadScene(3);
                 break;
             default:
                 break;
@@ -36,8 +35,15 @@ public class CategoryButtonControl : MonoBehaviour
 
 
 
-
-        SceneManager.LoadScene(1);
+        if (input.Equals("All Questions"))
+        {
+            SceneManager.LoadScene(3);
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
+        
     }
 
 
